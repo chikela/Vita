@@ -11,7 +11,7 @@
       "@routes/*": ["./src/routes/*"],
       "@middlewares/*": ["./src/middlewares/*"]
     },
-    "baseUrl": "."
+    "baseUrl": "./"
   },
   "module": {
     "type": "commonjs"
