@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const DATABASE_URL =
-  process.env.DATABASE_URL || 'mongodb://localhost:27017/Vita';
+  process.env.DATABASE_URL || 'mongodb+srv://hamlanbahar:IICe0oUOyxrfQrA6@cluster0.hlc8ip8.mongodb.net/Chikela';
 
 export const GOOGLE_KEY = {
   clientID: process.env.GOOGLE_KEY_CLIENTID || ' ',
