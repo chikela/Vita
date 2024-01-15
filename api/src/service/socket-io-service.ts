@@ -3,6 +3,7 @@ import { CORS_REGEX } from '../config/keys';
 import http from 'http';
 
 const socketService = (httpServer: http.Server): void => {
+  console.log(APP_NAME + ' ' + CORS_REGEX);
   const IO_OPTIONS = {
     cors: {
       origin: new RegExp(CORS_REGEX),
