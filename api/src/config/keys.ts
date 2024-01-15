@@ -20,15 +20,15 @@ export const CREATE_CALENDER_EMAIL = process.env.CREATE_CALENDER_EMAIL || ' ';
 
 export const PROD: boolean = JSON.parse(process.env.PROD || 'false');
 
-export const port = parseInt(<string>process.env.PORT, 10) || 5000;
+export const port = parseInt(<string>process.env.PORT, 10) || 80;
 
-export const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
+export const SERVER_URL = process.env.SERVER_URL || 'https://vita-qy1k.onrender.com';
 
-export const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
+export const CLIENT_URL = process.env.CLIENT_URL || 'https://chikela.netlify.app/';
 
 export const ADMIN_URL = process.env.ADMIN_URL || 'http://localhost:3001';
 
-export const CLIENT_DOMAIN = process.env.CLIENT_DOMAIN || 'localhost';
+export const CLIENT_DOMAIN = process.env.CLIENT_DOMAIN || 'chikela.netlify.app';
 
 export const CORS_REGEX =
   process.env.CORS_REGEX || [CLIENT_URL, ADMIN_URL].join('|');
