@@ -15,7 +15,7 @@
     "remove-modules": "rm -rf node_modules && npm run remove-client && npm run remove-server",
     "remove-modules-full": "rm -rf node_modules && npm run remove-client && npm run remove-server",
     "client": "cd client && npm run start",
-    "server": "cd api && npm run dev",
+    "server": "cd api && npm run dev-slow",
     "server:slow": "cd api && npm run dev-slow",
     "admin": "cd ../Admin && npm run start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
