@@ -1,5 +1,5 @@
 import { Server, Socket } from 'socket.io';
-import { CORS_REGEX } from '../config/keys';
+import { CORS_REGEX, APP_NAME} from '../config/keys';
 import http from 'http';
 
 const socketService = (httpServer: http.Server): void => {
