@@ -10,10 +10,10 @@ export const checkDBUrl = async (
   // eslint-disable-next-line node/no-deprecated-api
   const { hostname } = url.parse(DATABASE_URL, true);
 
-  if (hostname !== 'localhost')
-    return res.status(406).json({
-      message: 'DANGER!',
-    });
+  //if (hostname !== 'localhost')
+    //return res.status(406).json({
+      //message: 'DANGER!',
+    //});
 
   next();
 };
