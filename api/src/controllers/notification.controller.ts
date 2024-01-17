@@ -14,6 +14,7 @@ const markAllAsRead = async (req: Request, res: Response) => {
 };
 
 const getNotifications = async (req: Request, res: Response) => {
+  console.log(req);
   const user = req.user as Document & UserSchemaType;
 
   const notifications = await Notifications.find({ user: user._id });
