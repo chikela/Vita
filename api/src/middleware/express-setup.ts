@@ -17,6 +17,7 @@ const corsOptions = {
 };
 
 export const useMiddleWare = (app: Express) => {
+  console.log(CORS_REGEX);
   app.use(cors(corsOptions));
   app.set('trust proxy', 1);
   app.use(express.json());
