@@ -20,11 +20,11 @@ export const CREATE_CALENDER_EMAIL = process.env.CREATE_CALENDER_EMAIL || ' ';
 
 export const PROD: boolean = JSON.parse(process.env.PROD || 'false');
 
-export const port = parseInt(<string>process.env.PORT, 10) || 80;
+export const port = parseInt(<string>process.env.PORT, 10) || 10000;
 
 export const SERVER_URL = process.env.SERVER_URL || 'https://vita-qy1k.onrender.com';
 
-export const CLIENT_URL = process.env.CLIENT_URL || 'https://chikela.netlify.app/';
+export const CLIENT_URL = process.env.CLIENT_URL || 'https://chikela.netlify.app';
 
 export const ADMIN_URL = process.env.ADMIN_URL || 'http://localhost:3001';
 
