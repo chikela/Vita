@@ -67,7 +67,6 @@ const SignUpSteps: React.FC = () => {
             apiData,
             {
               withCredentials: true,
-              crossDomain: true,
             },
           );
 
@@ -102,7 +101,6 @@ const SignUpSteps: React.FC = () => {
             apiData,
             {
               withCredentials: true,
-              crossDomain: true,
             },
           );
 
