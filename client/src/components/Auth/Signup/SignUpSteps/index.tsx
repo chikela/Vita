@@ -67,6 +67,13 @@ const SignUpSteps: React.FC = () => {
             apiData,
             {
               withCredentials: true,
+              crossDomain: true,
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin':
+        'https://chikela.netlify.app',
+    },
             },
           );
 
@@ -101,6 +108,13 @@ const SignUpSteps: React.FC = () => {
             apiData,
             {
               withCredentials: true,
+              crossDomain: true,
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin':
+        'https://chikela.netlify.app',
+    },
             },
           );
 
