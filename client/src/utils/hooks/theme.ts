@@ -10,7 +10,7 @@ const getTheme = (mode: ThemeMode) => {
       mode,
 
       common: {
-        black: '#242424',
+        black: '#FFFFFF',
       },
     },
   });
