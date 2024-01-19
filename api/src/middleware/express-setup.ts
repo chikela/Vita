@@ -33,7 +33,7 @@ export const useMiddleWare = (app: Express) => {
   app.use(
     session({
       secret: COOKIE_KEYS,
-      name: 'vitaa-session',
+      //name: 'vitaa-session',
       resave: false,
       saveUninitialized: false,
       store: MongoStore.create({ mongoUrl: DATABASE_URL }),
