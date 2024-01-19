@@ -148,7 +148,7 @@ const auth = (req: Request, res: Response) => {
 };
 
 const jwtLogin = async (req: Request, res: Response) => {
-  console.log(req);
+  //console.log(req);
   const { email, password } = req.body;
 
   const user = await UserModel.findOne({ email });
@@ -412,7 +412,7 @@ const logout = (req: Request, res: Response) => {
 const registerUser = async (req: Request, res: Response) => {
   const data = parseFormData(req.body);
 console.log("ON REGISTER");
-  console.log(req.user);
+  //console.log(req.user);
   if (!req.user) {
     return res.status(401).json({
       success: false,
