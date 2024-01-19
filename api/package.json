@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Vita app backend",
   "main": "dist/index.js",
-  "proxy": "https://vita-qy1k.onrender.com",
   "engines": {
     "npm": ">=8.1.0",
     "node": ">=16.13.0"
