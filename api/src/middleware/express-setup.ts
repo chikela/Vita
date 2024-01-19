@@ -40,7 +40,7 @@ export const useMiddleWare = (app: Express) => {
       cookie: {
         maxAge: 24 * 60 * 60 * 1000,
         sameSite: 'none',
-        httpOnly: true,
+        httpOnly: false,
         secure: true,
       },
     }),
