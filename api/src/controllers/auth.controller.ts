@@ -148,7 +148,7 @@ const auth = (req: Request, res: Response) => {
 };
 
 const jwtLogin = async (req: Request, res: Response) => {
-  console.log(req.cookies.jwt);
+  
   const { email, password } = req.body;
 
   const user = await UserModel.findOne({ email });
@@ -183,7 +183,7 @@ const jwtLogin = async (req: Request, res: Response) => {
   }
 
   const token = user.issueToken();
-
+console.log(token);
   res.cookie('jwt', token, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 7,
