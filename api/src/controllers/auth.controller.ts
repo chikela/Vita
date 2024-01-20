@@ -148,7 +148,7 @@ const auth = (req: Request, res: Response) => {
 };
 
 const jwtLogin = async (req: Request, res: Response) => {
-  console.log(req.cookies);
+  console.log(req.cookies.token);
   const { email, password } = req.body;
 
   const user = await UserModel.findOne({ email });
