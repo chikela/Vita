@@ -187,7 +187,7 @@ const jwtLogin = async (req: Request, res: Response) => {
   res.cookie('jwt', token, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 7,
-    domain: 'www.chikela.et,
+    domain: 'www.chikela.et',
     sameSite: 'none',
   });
   return res.status(200).json({ isLoggedIn: true, user });
