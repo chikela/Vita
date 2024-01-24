@@ -24,11 +24,11 @@ export const port = parseInt(<string>process.env.PORT, 10) || 10000;
 
 export const SERVER_URL = process.env.SERVER_URL || 'https://vita-qy1k.onrender.com';
 
-export const CLIENT_URL = process.env.CLIENT_URL || 'https://chikela.netlify.app';
+export const CLIENT_URL = process.env.CLIENT_URL || 'https://www.chikela.et';
 
 export const ADMIN_URL = process.env.ADMIN_URL || 'http://localhost:3001';
 
-export const CLIENT_DOMAIN = process.env.CLIENT_DOMAIN || 'chikela.netlify.app';
+export const CLIENT_DOMAIN = process.env.CLIENT_DOMAIN || 'www.chikela.et';
 
 export const CORS_REGEX =
   process.env.CORS_REGEX || [CLIENT_URL, ADMIN_URL].join('|');
