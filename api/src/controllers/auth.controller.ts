@@ -183,6 +183,7 @@ const jwtLogin = async (req: Request, res: Response) => {
   }
 
   const token = user.issueToken();
+  res.setHeader('Set-Cookie', token);
 //console.log(token);
   res.cookie('jwt', token, {
     httpOnly: true,
@@ -414,8 +415,8 @@ const logout = (req: Request, res: Response) => {
 const registerUser = async (req: Request, res: Response) => {
   const data = parseFormData(req.body);
 console.log("ON REGISTER");
-  console.log(res);
-  //console.log(req.user);
+  //console.log(res);
+  console.log(req.user);
   if (!req.user) {
     return res.status(401).json({
       success: false,
