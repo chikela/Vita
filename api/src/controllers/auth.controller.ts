@@ -415,7 +415,7 @@ const logout = (req: Request, res: Response) => {
 const registerUser = async (req: Request, res: Response) => {
   const data = parseFormData(req.body);
 console.log("ON REGISTER");
-  console.log(req.headers.cookie);
+  console.log(data);
   console.log(req.user);
   if (!req.user) {
     return res.status(401).json({
