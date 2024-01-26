@@ -2,7 +2,6 @@
   "name": "vita-backend",
   "version": "1.0.0",
   "description": "Vita app backend",
-  "proxy": "http://localhost:10000",
   "main": "dist/index.js",
   "engines": {
     "npm": ">=8.1.0",
