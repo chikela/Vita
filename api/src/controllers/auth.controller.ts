@@ -189,7 +189,7 @@ const jwtLogin = async (req: Request, res: Response) => {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 7,
     //domain: 'www.chikela.et',
-    //sameSite: 'none',
+    sameSite: 'none',
   });
   return res.status(200).json({ isLoggedIn: true, user });
 };
@@ -415,8 +415,8 @@ const logout = (req: Request, res: Response) => {
 const registerUser = async (req: Request, res: Response) => {
   const data = parseFormData(req.body);
 console.log("ON REGISTER");
-  console.log(data);
-  console.log(req.user);
+  console.log(req.session);
+  
   if (!req.user) {
     return res.status(401).json({
       success: false,
@@ -425,7 +425,8 @@ console.log("ON REGISTER");
   }
 
   const user = req.user as Document & UserSchemaType;
-
+const token = user.issueToken();
+  console.lo(token);
   user.first_name = data.first_name;
   user.last_name = data.last_name;
   user.interests = data.interests;
