@@ -42,6 +42,7 @@ export const useMiddleWare = (app: Express) => {
         sameSite: 'none',
         // httpOnly: false,
         secure: true,
+        domain: 'https://chekil.netlify.app',
       },
     }),
   );
