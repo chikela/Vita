@@ -31,7 +31,7 @@ export const ADMIN_URL = process.env.ADMIN_URL || 'http://localhost:3001';
 export const CLIENT_DOMAIN = process.env.CLIENT_DOMAIN || 'www.chikela.et';
 
 export const CORS_REGEX =
-  process.env.CORS_REGEX || [CLIENT_URL, ADMIN_URL].join('|');
+  process.env.CORS_REGEX || [CLIENT_URL, CLIENT_DOMAIN].join('|');
 
 export const COOKIE_KEYS = [process.env.COOKIE_KEYS || 'key'];
 
