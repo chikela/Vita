@@ -5,8 +5,8 @@ const Proxy = (app: any) => {
   app.use(
     '/',
     createProxyMiddleware({
-      target: SERVER_URL,
-      changeOrigin: false,
+      target: "https://vita-qy1k.onrender.com",
+      changeOrigin: true,
     }),
   );
 };
