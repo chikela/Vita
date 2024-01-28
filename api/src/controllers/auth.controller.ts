@@ -183,7 +183,7 @@ const jwtLogin = async (req: Request, res: Response) => {
   }
 
   const token = user.issueToken();
-  req.session.token = token;
+  //req.session.token = token;
   // res.setHeader('Set-Cookie', token);
 //console.log(token);
   res.cookie('jwt', token, {
