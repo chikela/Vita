@@ -416,9 +416,9 @@ const logout = (req: Request, res: Response) => {
 const registerUser = async (req: Request, res: Response) => {
   const data = parseFormData(req.body);
 console.log("ON REGISTER");
-  console.log(req.cookies.jwt);
   
-  if (!req.user) {
+  try{
+    if (!req.user) {
     return res.status(401).json({
       success: false,
       message: 'You are not logged in',
@@ -478,6 +478,10 @@ console.log("ON REGISTER");
   }
 
   return res.json(user);
+  } catch (e) {
+  console.log('error was ' + e);
+}
+  
 };
 
 const devLogin = async (req: Request, res: Response) => {
