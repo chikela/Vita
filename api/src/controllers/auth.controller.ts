@@ -183,6 +183,7 @@ const jwtLogin = async (req: Request, res: Response) => {
   }
 
   const token = user.issueToken();
+  req.session.token = token;
   // res.setHeader('Set-Cookie', token);
 //console.log(token);
   res.cookie('jwt', token, {
@@ -415,7 +416,7 @@ const logout = (req: Request, res: Response) => {
 const registerUser = async (req: Request, res: Response) => {
   const data = parseFormData(req.body);
 console.log("ON REGISTER");
-  console.log(req.session);
+  console.log(req.session.token);
   
   if (!req.user) {
     return res.status(401).json({
@@ -425,8 +426,8 @@ console.log("ON REGISTER");
   }
 
   const user = req.user as Document & UserSchemaType;
-const token = user.issueToken();
-  console.lo(token);
+// const token = user.issueToken();
+  // console.lo(token);
   user.first_name = data.first_name;
   user.last_name = data.last_name;
   user.interests = data.interests;
