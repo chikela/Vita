@@ -414,20 +414,23 @@ const logout = (req: Request, res: Response) => {
 };
 
 const registerUser = async (req: Request, res: Response) => {
-  const data = parseFormData(req.body);
-console.log("ON REGISTER");
-  
-  try{
-    if (!req.user) {
+ const data = parseFormData(req.body);
+  console.log('On register');
+  console.log(data);
+  // const { userId } = req.query.userId?.toString() || '';
+  const { userId } = req.query as { userId: string };
+  console.log(userId);
+  const presentUser = await UserModel.findById(userId);
+  console.log(presentUser);
+  if (!presentUser) {
     return res.status(401).json({
       success: false,
       message: 'You are not logged in',
     });
   }
 
-  const user = req.user as Document & UserSchemaType;
-// const token = user.issueToken();
-  // console.lo(token);
+  const user = presentUser as Document & UserSchemaType;
+
   user.first_name = data.first_name;
   user.last_name = data.last_name;
   user.interests = data.interests;
@@ -478,9 +481,6 @@ console.log("ON REGISTER");
   }
 
   return res.json(user);
-  } catch (e) {
-  console.log('error was ' + e);
-}
   
 };
 
