@@ -399,7 +399,12 @@ const rejectBooking = async (req: Request, res: Response) => {
 
 const getBookings = async (req: Request, res: Response) => {
   const type = req.query.type as string;
-  const user = req.user as UserSchemaType & Document;
+  // bahu added
+  const { userId } = req.query as { userId: string };
+  console.log(userId);
+  const presentUser = await UserModel.findById(userId);
+  // const user = req.user as UserSchemaType & Document;
+  const user = presentUser as UserSchemaType & Document;
 
   const searchOptions: FilterQuery<BookingSchemaType> = {
     $or: [{ mentee: user._id }, { mentor: user._id }],
