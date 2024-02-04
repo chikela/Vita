@@ -2,10 +2,15 @@ import { Request, Response } from 'express';
 import { Document } from 'mongoose';
 import Notifications from '../Models/Notifications';
 import { UserSchemaType } from '../types';
+import { UserModel } from '../Models/User';
 
 const markAllAsRead = async (req: Request, res: Response) => {
-  const user = req.user as Document & UserSchemaType;
-
+  // const user = req.user as Document & UserSchemaType;
+  // bahu added
+  const { userId } = req.query as { userId: string };
+  console.log(userId);
+  const presentUser = await UserModel.findById(userId);
+  const user = presentUser as UserSchemaType & Document;
   await Notifications.updateMany({ user_id: user._id }, { status: 'read' });
 
   return res.status(200).json({
@@ -14,9 +19,12 @@ const markAllAsRead = async (req: Request, res: Response) => {
 };
 
 const getNotifications = async (req: Request, res: Response) => {
-  console.log(req);
-  const user = req.user as Document & UserSchemaType;
-
+  // const user = req.user as Document & UserSchemaType;
+  // bahu added
+  const { userId } = req.query as { userId: string };
+  console.log(userId);
+  const presentUser = await UserModel.findById(userId);
+  const user = presentUser as UserSchemaType & Document;
   const notifications = await Notifications.find({ user: user._id });
 
   return res.status(200).json(notifications);
