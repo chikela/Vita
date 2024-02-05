@@ -243,8 +243,15 @@ const bookSlot = async (req: Request, res: Response) => {
 
 const acceptBooking = async (req: Request, res: Response) => {
   try {
-    const mentor = req.user as UserSchemaType & Document;
+    console.log('ON Accept bookin');
+
+    const { userId } = req.query as { userId: string };
+    console.log('Accepting Mentor: ' + userId);
+    const presentUser = await UserModel.findById(userId);
+    const mentor = presentUser as UserSchemaType & Document;
+    console.log(mentor);
     const { id } = req.params;
+    console.log(id);
     const booking = await BookingModel.findById(id);
 
     if (!booking) {
@@ -341,7 +348,10 @@ const acceptBooking = async (req: Request, res: Response) => {
 
 const rejectBooking = async (req: Request, res: Response) => {
   try {
-    const mentor = req.user as UserSchemaType & Document;
+    const { userId } = req.query as { userId: string };
+    console.log('Rejecting Mentor: ' + userId);
+    const presentUser = await UserModel.findById(userId);
+    const mentor = presentUser as UserSchemaType & Document;
     const { id } = req.params;
 
     const booking = await BookingModel.findById(id);
