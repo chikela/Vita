@@ -243,6 +243,7 @@ const acceptBooking = async (req: Request, res: Response) => {
     const { id } = req.params;
     const presentUser = await UserModel.findById(id);
     const mentor = presentUser as UserSchemaType & Document;
+    console.log(mentor);
     const booking = await BookingModel.findById(id);
 
     if (!booking) {
