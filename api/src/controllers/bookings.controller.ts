@@ -58,7 +58,12 @@ const availability = async (req: Request, res: Response) => {
 };
 
 const bookSlot = async (req: Request, res: Response) => {
-  const user = req.user as UserSchemaType & Document;
+  // const user = req.user as UserSchemaType & Document;
+  // bahu added
+  const { userId } = req.query as { userId: string };
+  console.log(userId);
+  const presentUser = await UserModel.findById(userId);
+  const user = presentUser as UserSchemaType & Document;
   const { start_date, mentor_id, email, topic, description } = req.body as {
     start_date: string;
     mentor_id: string;
@@ -233,8 +238,11 @@ const bookSlot = async (req: Request, res: Response) => {
 
 const acceptBooking = async (req: Request, res: Response) => {
   try {
-    const mentor = req.user as UserSchemaType & Document;
+    // const mentor = req.user as UserSchemaType & Document;
+    // const { id } = req.params;
     const { id } = req.params;
+    const presentUser = await UserModel.findById(id);
+    const mentor = presentUser as UserSchemaType & Document;
     const booking = await BookingModel.findById(id);
 
     if (!booking) {
@@ -329,9 +337,11 @@ const acceptBooking = async (req: Request, res: Response) => {
 
 const rejectBooking = async (req: Request, res: Response) => {
   try {
-    const mentor = req.user as UserSchemaType & Document;
+    // const mentor = req.user as UserSchemaType & Document;
+    // const { id } = req.params;
     const { id } = req.params;
-
+    const presentUser = await UserModel.findById(id);
+    const mentor = presentUser as UserSchemaType & Document;
     const booking = await BookingModel.findById(id);
 
     if (!booking) {
