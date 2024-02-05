@@ -3,10 +3,10 @@ import { Document, FilterQuery } from 'mongoose';
 
 import { BookingModel } from '../Models/Booking';
 import { MentorModel, UserModel } from '../Models/User';
-import {
-  sendBookingConfirmationMessage,
-  sendBookingRequestMessage,
-} from '../service/whatsapp-service';
+// import {
+// sendBookingConfirmationMessage,
+// sendBookingRequestMessage,
+// } from '../service/whatsapp-service';
 import { sendEmail } from '../service/email-service';
 import { makeTemplate } from '../utils/makeTemplate';
 
@@ -26,6 +26,16 @@ enum BookingStatus {
   ACCEPTED = 'accepted',
   WAITING = 'waiting',
   CANCELLED = 'cancelled',
+}
+function getRandomNumber(length: number) {
+  let result = '';
+  const characters = '0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
 }
 
 const availability = async (req: Request, res: Response) => {
@@ -58,12 +68,7 @@ const availability = async (req: Request, res: Response) => {
 };
 
 const bookSlot = async (req: Request, res: Response) => {
-  // const user = req.user as UserSchemaType & Document;
-  // bahu added
-  const { userId } = req.query as { userId: string };
-  console.log(userId);
-  const presentUser = await UserModel.findById(userId);
-  const user = presentUser as UserSchemaType & Document;
+  const user = req.user as UserSchemaType & Document;
   const { start_date, mentor_id, email, topic, description } = req.body as {
     start_date: string;
     mentor_id: string;
@@ -90,7 +95,7 @@ const bookSlot = async (req: Request, res: Response) => {
 
   if (!mentor.is_mentoring) {
     return res.json(404).json({
-      error: 'Mentor currently is not mentoring',
+      error: 'Tutor currently is not mentoring',
     });
   }
 
@@ -103,7 +108,7 @@ const bookSlot = async (req: Request, res: Response) => {
   if (alreadyWaiting) {
     return res.status(400).json({
       error:
-        'You already have a booking slot in waiting with this mentor. You cannot book for one more till that slot is accepted or cancelled',
+        'You already have a booking slot in waiting with this tutor. You cannot book for one more till that slot is accepted or cancelled',
     });
   }
 
@@ -116,7 +121,7 @@ const bookSlot = async (req: Request, res: Response) => {
     )
   ) {
     return res.status(400).json({
-      error: 'Mentor does not have a slot for given time',
+      error: 'Tutor does not have a slot for given time',
     });
   }
 
@@ -135,7 +140,7 @@ const bookSlot = async (req: Request, res: Response) => {
 
   if (existingBooking && existingBooking.status === BookingStatus.ACCEPTED) {
     return res.status(400).json({
-      error: 'Mentor is already booked',
+      error: 'Tutor is already booked',
     });
   }
 
@@ -186,15 +191,15 @@ const bookSlot = async (req: Request, res: Response) => {
   allPromises.push(mentor.save());
   allPromises.push(user.save());
 
-  allPromises.push(
-    sendBookingRequestMessage(
-      mentor.phone,
-      mentorName,
-      menteeName,
-      date.format('dddd, MMMM Do YYYY, h:mm a'),
-      booking._id,
-    ),
-  );
+  // allPromises.push(
+  // sendBookingRequestMessage(
+  //  mentor.phone,
+  //  mentorName,
+  //  menteeName,
+  //  date.format('dddd, MMMM Do YYYY, h:mm a'),
+  //  booking._id,
+  // ),
+  // );
 
   allPromises.push(
     notificationController.notify(
@@ -238,12 +243,8 @@ const bookSlot = async (req: Request, res: Response) => {
 
 const acceptBooking = async (req: Request, res: Response) => {
   try {
-    // const mentor = req.user as UserSchemaType & Document;
-    // const { id } = req.params;
+    const mentor = req.user as UserSchemaType & Document;
     const { id } = req.params;
-    const presentUser = await MentorModel.findById(id);
-    const mentor = presentUser as UserSchemaType & Document;
-    console.log(mentor);
     const booking = await BookingModel.findById(id);
 
     if (!booking) {
@@ -271,22 +272,24 @@ const acceptBooking = async (req: Request, res: Response) => {
       { email: booking.mentee_email },
     ];
 
-    const options: CalendarOptionTypes = {
-      startTime: booking.start_date,
-      endTime: booking.end_date,
-      attendeesEmails,
-      summary: booking.session.topic,
-      description: booking.session.description,
-    };
+    // const options: CalendarOptionTypes = {
+    //  startTime: booking.start_date,
+    //  endTime: booking.end_date,
+    //  attendeesEmails,
+    //  summary: booking.session.topic,
+    //  description: booking.session.description,
+    // };
 
-    const event = await createCalenderEvent(options);
-    booking.event_id = event.id;
-    booking.google_meeting_link = event.hangoutLink;
+    // const event = await createCalenderEvent(options);
+    const num = getRandomNumber(5);
+    booking.event_id = num; // event.id;
+    booking.google_meeting_link =
+      'https://signal-chikela.koyeb.app/join/' + num; // event.hangoutLink;
 
     const mentee = (await UserModel.findById(booking.mentee)) as UserSchemaType;
 
     const slot = moment(booking.start_date);
-    const googleMeetCode = event.hangoutLink.split('/').pop();
+    const googleMeetCode = num; // event.hangoutLink.split('/').pop();
     const mentorName = `${mentor.first_name} ${mentor.last_name}`;
     const menteeName = `${mentee.first_name} ${mentee.last_name}`;
 
@@ -301,23 +304,23 @@ const acceptBooking = async (req: Request, res: Response) => {
       `/dashboard`,
     );
 
-    await sendBookingConfirmationMessage(
-      mentee.phone,
-      menteeName,
-      mentorName,
-      booking.session.topic || '',
-      slot.tz(mentee.timezone).format('dddd, MMMM Do YYYY, h:mm a'),
-      googleMeetCode,
-    );
+    // await sendBookingConfirmationMessage(
+    // mentee.phone,
+    // menteeName,
+    //  mentorName,
+    // booking.session.topic || '',
+    //  slot.tz(mentee.timezone).format('dddd, MMMM Do YYYY, h:mm a'),
+    // googleMeetCode,
+    // );
 
-    await sendBookingConfirmationMessage(
-      mentor.phone,
-      mentorName,
-      menteeName,
-      booking.session.topic || '',
-      slot.tz(mentor.timezone).format('dddd, MMMM Do YYYY, h:mm a'),
-      googleMeetCode,
-    );
+    // await sendBookingConfirmationMessage(
+    //  mentor.phone,
+    //  mentorName,
+    // menteeName,
+    // booking.session.topic || '',
+    // slot.tz(mentor.timezone).format('dddd, MMMM Do YYYY, h:mm a'),
+    // googleMeetCode,
+    // );
 
     const mentorDoc = await MentorModel.findOne({ _id: booking.mentor });
 
@@ -338,11 +341,9 @@ const acceptBooking = async (req: Request, res: Response) => {
 
 const rejectBooking = async (req: Request, res: Response) => {
   try {
-    // const mentor = req.user as UserSchemaType & Document;
-    // const { id } = req.params;
+    const mentor = req.user as UserSchemaType & Document;
     const { id } = req.params;
-    const presentUser = await UserModel.findById(id);
-    const mentor = presentUser as UserSchemaType & Document;
+
     const booking = await BookingModel.findById(id);
 
     if (!booking) {
